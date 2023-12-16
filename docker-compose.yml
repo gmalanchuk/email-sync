@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - ./:/email
-    command: "python main.py"
+    command: "python src/main.py"
     networks:
       - network
 
