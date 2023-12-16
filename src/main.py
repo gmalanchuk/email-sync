@@ -2,14 +2,7 @@ import pika
 
 from config import RABBITMQ_USER, RABBITMQ_HOST, RABBITMQ_PASS
 from config import logger
-
-
-def event_notification(ch, method, properties, body):
-    print(f" [x] Received {body}")
-
-
-def basic_consumers(channel):
-    channel.basic_consume(queue='events', on_message_callback=event_notification, auto_ack=True)
+from rabbitmq.include_consumers import include_all_consumers
 
 
 def connection_to_rabbitmq_and_start_consuming():
@@ -18,10 +11,9 @@ def connection_to_rabbitmq_and_start_consuming():
     channel = connection.channel()
     logger.info("Rabbitmq connection open")
 
-    basic_consumers(channel)
+    include_all_consumers(channel)
 
     logger.info("Rabbitmq start consuming")
-
     channel.start_consuming()
 
 
