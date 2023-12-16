@@ -1,7 +1,8 @@
 import pika
 
 # Подключение к серверу RabbitMQ
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+credentials = pika.PlainCredentials(username='task', password='task')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='task-rabbitmq', credentials=credentials))
 channel = connection.channel()
 
 # Создание очереди (если её нет)

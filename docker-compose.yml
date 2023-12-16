@@ -1,61 +1,18 @@
 version: '3'
 
 services:
-  task:
-    container_name: task
+  email:
+    container_name: email
     build: .
     restart: always
     volumes:
-      - ./:/task
-    command: >
-      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - '8000:8000'
-    env_file:
-      - .env
-    depends_on:
-      - postgres
+      - ./:/email
+    command: "python main.py"
     networks:
       - network
-
-  postgres:
-    container_name: task-postgres
-    hostname: ${POSTGRES_HOST}
-    image: postgres:alpine
-    restart: always
-    volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-      - postgres_data:/var/lib/postgresql/data/
-    ports:
-      - '${POSTGRES_PORT}:5433'
-    environment:
-      - POSTGRES_DB=${POSTGRES_NAME}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASS}
-      - PGPORT=5433
-    networks:
-      - network
-
-  rabbitmq:
-    image: rabbitmq:3.12.10-management
-    hostname: ${RABBITMQ_HOST}
-    restart: always
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
-    ports:
-      - '${RABBITMQ_PORT}:15672'
-    networks:
-      - network
-    depends_on:
-      - task
-
-volumes:
-  postgres_data:
 
 
 networks:
   network:
-    name: authentication_network
     external: true
+    name: authentication_network
