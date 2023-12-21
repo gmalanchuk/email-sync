@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  email:
+    container_name: email
+    build: .
+    restart: always
+    volumes:
+      - ./:/email
+    command: "python src/main.py"
+    networks:
+      - network
+
+
+networks:
+  network:
+    external: true
+    name: authentication_network
