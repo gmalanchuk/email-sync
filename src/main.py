@@ -2,7 +2,7 @@ import pika
 
 from config import RABBITMQ_USER, RABBITMQ_HOST, RABBITMQ_PASS
 from config import logger
-from rabbitmq.include_consumers import include_all_consumers
+from rabbitmq.include_consumers import include_all_consumers_and_queues
 
 
 def connection_to_rabbitmq_and_start_consuming():
@@ -11,7 +11,7 @@ def connection_to_rabbitmq_and_start_consuming():
     channel = connection.channel()
     logger.info("Rabbitmq connection open")
 
-    include_all_consumers(channel)
+    include_all_consumers_and_queues(channel)
 
     logger.info("Rabbitmq start consuming")
     channel.start_consuming()
