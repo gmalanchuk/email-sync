@@ -36,4 +36,4 @@ def event_notification(ch, method, properties, body):
         server.login(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
         server.sendmail(from_addr=EMAIL_HOST_USER, to_addrs=data['email'], msg=message.as_string())
 
-    logger.info("Email successfully sent")
+    logger.info("Event notification successfully sent")
