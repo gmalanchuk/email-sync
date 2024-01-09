@@ -2,7 +2,7 @@ version: '3'
 
 services:
   email:
-    container_name: email
+    container_name: 'email'
     build: .
     restart: always
     volumes:
@@ -14,7 +14,7 @@ services:
       - rabbitmq
 
   rabbitmq:
-    container_name: email-rabbitmq
+    container_name: 'email-rabbitmq'
     image: rabbitmq:3.12.10-management
     hostname: ${RABBITMQ_HOST}
     restart: always

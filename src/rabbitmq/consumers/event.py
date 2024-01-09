@@ -21,7 +21,7 @@ def event_notification(ch, method, properties, body):
     message = MIMEMultipart()
     message["From"] = EMAIL_HOST_USER
     message["To"] = data['email']
-    message["Subject"] = f"Hello {data['username']}"
+    message["Subject"] = f"Hello {data['name']}"
 
     title = data['title']
     action = http_methods[data['http_method']]

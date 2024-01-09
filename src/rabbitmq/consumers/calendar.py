@@ -13,13 +13,13 @@ def calendar_notification(ch, method, properties, body):
     message = MIMEMultipart()
     message["From"] = EMAIL_HOST_USER
     message["To"] = data['email']
-    message["Subject"] = f"Hello {data['executor_username']}"
+    message["Subject"] = f"Hello {data['executor_name']}"
 
     title = data['title']
     model_name = data['model_name'].lower()
     deadline = data['deadline']
-    owner_username = data['owner_username']
-    message.attach(MIMEText(_text=f"{owner_username} has assigned you a {title} {model_name} that expires in one hour. Exact time of expiry: {deadline}"))
+    owner_name = data['owner_name']
+    message.attach(MIMEText(_text=f"{owner_name} has assigned you a {title} {model_name} that expires in one hour. Exact time of expiry: {deadline}"))
 
     with smtplib.SMTP(host="smtp.gmail.com", port=587) as server:
         server.starttls()
